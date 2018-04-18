@@ -13,7 +13,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 class person:
-    def __init__(self,hp,mp,atk,df,magic,items):
+    def __init__(self,name, hp,mp,atk,df,magic,items):
         self.maxhp = hp
         self.hp = hp
         self.maxmp = mp
@@ -24,6 +24,7 @@ class person:
         self.magic = magic
         self.items = items
         self.actions = ["Attack", "Magic", "Items"]
+        self.name = name
 
     def generate_damage(self):
         return random.randrange(self.atkl, self.atkh)
@@ -57,7 +58,8 @@ class person:
 
     def choose_action(self):
         i = 1
-        print(bcolors.OKBLUE + bcolors.BOLD + "ACTION" + bcolors.ENDC)
+        print("\n" + "    " + bcolors.BOLD + self.name + bcolors.ENDC)
+        print(bcolors.OKBLUE + bcolors.BOLD + "    ACTION" + bcolors.ENDC)
         for item in self.actions:
             print(str(i) + ":", item)
             i += 1
@@ -65,7 +67,7 @@ class person:
     def choose_magic(self):
         i = 1
 
-        print(bcolors.OKBLUE + bcolors.BOLD + "MAGIC" + bcolors.ENDC)
+        print(bcolors.OKBLUE + bcolors.BOLD + "    MAGIC" + bcolors.ENDC)
         print("magic")
         for spell in self.magic:
             print(str(i) + ":", spell.name, "(cost:", str(spell.cost) + ")")
@@ -73,10 +75,17 @@ class person:
 
     def choose_items(self):
         i = 1
-        print(bcolors.OKGREEN + bcolors.BOLD + "ITEMS:" + bcolors.ENDC)
+        print(bcolors.OKGREEN + bcolors.BOLD + "    ITEMS:" + bcolors.ENDC)
         for item in self.items:
             print(str(i) + ".", item["item"].name + ":", item["item"].description, "(x" + str(item["quantity"]))
             i += 1
+
+    def get_stats(self):
+        print("                      _________________________          __________")
+        print(bcolors.BOLD + self.name + "  " +
+              srt(self.hp) + "/" + str(self.maxhp) + "|" + bcolors.OKGREEN + "|||||||||||||||  " + bcolors.ENDC + bcolors.BOLD
+              + "|  " +
+              str(self.mp) + "/" + str(self.maxmp) + "|" + bcolors.OKBLUE + "|" + bcolors.ENDC + "|" )
 
 
 
